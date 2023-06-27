@@ -1,3 +1,9 @@
+# dir
+**/bin/
+
+# CMakeLists.txt.user
+*.user
+
 # Prerequisites
 *.d
 
