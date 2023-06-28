@@ -21,3 +21,4 @@
 
 
 
+![运行示例](https://github.com/honyer/qt6_dev_guide/blob/main/chapter2_3/chapter2_3_preview.png)

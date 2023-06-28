@@ -24,3 +24,4 @@
     connect(ui->rbtnBlue, SIGNAL(clicked()), this, SLOT(do_setFontColor()));
 ```
 
+![运行示例](https://github.com/honyer/qt6_dev_guide/blob/main/chapter2_2/chapter2_2_preview.png)
