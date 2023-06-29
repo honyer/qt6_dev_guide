@@ -18,15 +18,17 @@ void Widget::do_pbnClicked()
 {
     QPushButton *pbn = qobject_cast<QPushButton *>(sender());
     if (pbn == pbnStrUnicode) {
-        qDebug() << "QPushButton Clicked：pbnStrUnicode";
-    }
-}
-
-void Widget::do_cbxClicked(bool checked)
-{
-    QCheckBox *cbx = qobject_cast<QCheckBox *>(sender());
-    if (cbx == cbxIsDigit) {
-        qDebug() << "QCheckBox cbxIsDigit" << checked;
+        pbn_clicked_StrUnicode();
+    } else if (pbn == pbnClear) {
+        pbn_clicked_Clear();
+    } else if (pbn == pbnCharPropety) {
+        pbn_clicked_CharPropety();
+    } else if (pbn == pbnLatin1) {
+        pbn_clicked_Latin1();
+    } else if (pbn == pbnQChar) {
+        pbn_clicked_QChar();
+    } else if (pbn == pbnUtf16) {
+        pbn_clicked_Utf16();
     }
 }
 
@@ -108,13 +110,113 @@ void Widget::initSlots()
     connect(pbnUtf16, &QPushButton::clicked, this, &Widget::do_pbnClicked);
     connect(pbnQChar, &QPushButton::clicked, this, &Widget::do_pbnClicked);
     connect(pbnClear, &QPushButton::clicked, this, &Widget::do_pbnClicked);
-    connect(cbxIsDigit, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsLetter, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsLetterOrNum, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsUpper, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsLower, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsMark, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsSpace, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsSymbol, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
-    connect(cbxIsPunct, &QCheckBox::clicked, this, &Widget::do_cbxClicked);
+}
+
+void Widget::pbn_clicked_StrUnicode()
+{
+    QString strContent = "";
+    pteContent->clear();
+
+    QString str = letInputStr->text();
+    if (str.isEmpty()) {
+        return;
+    }
+
+    for (qint16 i = 0; i < str.size(); i++) {
+        QChar ch = str.at(i);
+        // `char16_t` 是 C++11 引入的一种整数类型，用于表示 16 位的 Unicode 字符。
+        // 它与 `ushort` 类型具有相同的大小（两者都是 16 位），
+        // 因此可以直接将 `unicode()` 返回的值赋给 `char16_t` 类型的变量。
+        char16_t uniCode = ch.unicode();
+        strContent.append(QString(ch));
+        // `%X`用于将整数值`uniCode`转换为十六进制表示
+        strContent.append(QString::asprintf("\t,Unicode编码= 0x%X\n", uniCode));
+    }
+
+    pteContent->appendPlainText(strContent);
+}
+
+void Widget::pbn_clicked_CharPropety()
+{
+    QString str = letInputChar->text();
+    if (str.isEmpty()) {
+        return;
+    }
+    QChar ch = str.at(0);
+    char16_t uniCode = ch.unicode();
+    QString strContent = QString(ch);
+    strContent.append(QString::asprintf("\t,Unicode编码= 0x%X\n", uniCode));
+
+    // 判断该字符的特性填充到checkbox
+    pteContent->appendPlainText(strContent);
+    cbxIsDigit->setChecked(ch.isDigit());
+    cbxIsLetter->setChecked(ch.isLetter());
+    cbxIsLetterOrNum->setChecked(ch.isLetterOrNumber());
+    cbxIsUpper->setChecked(ch.isUpper());
+    cbxIsLower->setChecked(ch.isLower());
+    cbxIsMark->setChecked(ch.isMark());
+    cbxIsSpace->setChecked(ch.isSpace());
+    cbxIsSymbol->setChecked(ch.isSymbol());
+    cbxIsPunct->setChecked(ch.isPunct());
+}
+
+void Widget::pbn_clicked_Latin1()
+{
+    QString str = "Dimple";
+    QString strContent = "原文：\"" + str + "\"\n";
+    pteContent->clear();
+
+    QChar chP = QChar::fromLatin1('P');
+    str[0] = chP;
+    strContent.append("\nQChar chP = QChar::fromLatin1('P');\nstr[0] = chP;\n\n");
+    strContent.append("现文：" + str + "\"\n");
+
+    pteContent->appendPlainText(strContent);
+}
+
+void Widget::pbn_clicked_Utf16()
+{
+    QString str = "Hello,北京";
+    pteContent->clear();
+    QString strContent = "原文：\"" + str + "\"\n";
+    str[6] = QChar(0x9752);
+    str[7] = QChar::fromUcs2(0x5C9B);
+    strContent.append("\n");
+    strContent.append("str[6] = QChar(0x9752);\n");
+    strContent.append("str[7] = QChar::fromUcs2(0x5C9B);\n");
+    strContent.append("\n");
+    strContent.append("现文：\"" + str + "\"\n");
+
+    pteContent->appendPlainText(strContent);
+}
+
+void Widget::pbn_clicked_QChar()
+{
+    QString strTarget = "河to湖";
+    QString str = "他们来自于河南或河北";
+    pteContent->clear();
+    QString strContent = "目标：" + strTarget + "\n原文：\"" + str + "\"\n";
+    QChar he = QChar::fromUcs2(strTarget[0].unicode());
+    qDebug() << he;
+    QChar hu = QChar(strTarget[3].unicode());
+    qDebug() << hu;
+    for (int i = 0; i < str.size(); i++) {
+        if (str.at(i) == he)
+            str[i] = hu;
+    }
+    strContent.append("\n");
+    strContent.append("QChar he = QChar::fromUcs2(strTarget[0].unicode());\n");
+    strContent.append("QChar hu = QChar(strTarget[3].unicode());\n");
+    strContent.append("for (int i = 0; i < str.size(); i++) {\n");
+    strContent.append("    if (str.at(i) == he)\n");
+    strContent.append("        str[i] = hu;\n");
+    strContent.append("}\n\n");
+    strContent.append("现文：\"" + str + "\"\n");
+
+    pteContent->appendPlainText(strContent);
+}
+
+void Widget::pbn_clicked_Clear()
+{
+    pteContent->clear();
 }

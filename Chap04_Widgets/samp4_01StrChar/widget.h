@@ -16,7 +16,6 @@ public:
 
 private slots:
     void do_pbnClicked();
-    void do_cbxClicked(bool checked);
 
 private:
     QLineEdit *letInputStr;
@@ -43,4 +42,11 @@ private:
 
     void setupUI();
     void initSlots();
+
+    void pbn_clicked_StrUnicode();
+    void pbn_clicked_CharPropety();
+    void pbn_clicked_Latin1();
+    void pbn_clicked_Utf16();
+    void pbn_clicked_QChar();
+    void pbn_clicked_Clear();
 };
