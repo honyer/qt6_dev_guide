@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(chapter3_3 VERSION 0.1 LANGUAGES CXX)
+project(samp2_2VisualUI VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -16,36 +16,37 @@ set(PROJECT_SOURCES
         main.cpp
         widget.cpp
         widget.h
-        tperson.h
-        tperson.cpp
+        widget.ui
+        res.qrc
+        appIcon.rc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(chapter3_3
+    qt_add_executable(samp2_2VisualUI
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
 # Define target properties for Android with Qt 6 as:
-#    set_property(TARGET chapter3_3 APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
+#    set_property(TARGET samp2_2VisualUI APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
 #                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
 # For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
-        add_library(chapter3_3 SHARED
+        add_library(samp2_2VisualUI SHARED
             ${PROJECT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(chapter3_3
+        add_executable(samp2_2VisualUI
             ${PROJECT_SOURCES}
         )
     endif()
 endif()
 
-target_link_libraries(chapter3_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(samp2_2VisualUI PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-set_target_properties(chapter3_3 PROPERTIES
+set_target_properties(samp2_2VisualUI PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -53,12 +54,12 @@ set_target_properties(chapter3_3 PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-install(TARGETS chapter3_3
+install(TARGETS samp2_2VisualUI
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(chapter3_3)
+    qt_finalize_executable(samp2_2VisualUI)
 endif()

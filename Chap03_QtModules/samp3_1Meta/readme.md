@@ -42,4 +42,4 @@ sender()是信号发送者，返回的是一个QObject指针，通过qobject_cas
     QSpinBox *sbx = qobject_cast<QSpinBox *>(sender());
 ```
 
-![运行示例](https://github.com/honyer/qt6_dev_guide/blob/main/chapter3_3/chapter3_3_preview.png)
+![运行示例](https://github.com/honyer/qt6_dev_guide/blob/main/Chap03_QtModules/samp3_1Meta/chapter3_3_preview.png)

@@ -93,39 +93,39 @@ void Widget::setupUI()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     // 三个字体复选框 gbxFont[hlayFont[cbxUnderLine,cbxItalic,cbxBold]]
-    QGroupBox *gbxFont = new QGroupBox("字体");
+    QGroupBox *gbxFont = new QGroupBox("字体", this);
     QHBoxLayout *hlayFont = new QHBoxLayout(gbxFont);
-    cbxUnderLine = new QCheckBox("UnderLine");
-    cbxItalic = new QCheckBox("Italic");
-    cbxBold = new QCheckBox("Bold");
+    cbxUnderLine = new QCheckBox("UnderLine", gbxFont);
+    cbxItalic = new QCheckBox("Italic", gbxFont);
+    cbxBold = new QCheckBox("Bold", gbxFont);
     hlayFont->addWidget(cbxUnderLine);
     hlayFont->addWidget(cbxItalic);
     hlayFont->addWidget(cbxBold);
     mainLayout->addWidget(gbxFont);
 
     // 三个颜色单选框 gbxColor[hblayColor[cbxUnderLine,cbxItalic,cbxBold]]
-    QGroupBox *gbxColor = new QGroupBox("颜色");
+    QGroupBox *gbxColor = new QGroupBox("颜色", this);
     QHBoxLayout *hblayColor = new QHBoxLayout(gbxColor);
-    rbtnBlack = new QRadioButton("Black");
-    rbtnRed = new QRadioButton("Red");
-    rbtnBlue = new QRadioButton("Blue");
+    rbtnBlack = new QRadioButton("Black", gbxColor);
+    rbtnRed = new QRadioButton("Red", gbxColor);
+    rbtnBlue = new QRadioButton("Blue", gbxColor);
     hblayColor->addWidget(rbtnBlack);
     hblayColor->addWidget(rbtnRed);
     hblayColor->addWidget(rbtnBlue);
     mainLayout->addWidget(gbxColor);
 
     // 文本编辑框
-    ptextEdit = new QPlainTextEdit();
+    ptextEdit = new QPlainTextEdit(this);
     ptextEdit->insertPlainText("通过纯代码创建的GUI布局");
     mainLayout->addWidget(ptextEdit);
 
     // 三个按钮水平布局 hblayButton[spItem1,btnClear,spItem2,btnOk,btnQuit]
     QHBoxLayout *hblayButton = new QHBoxLayout();
     QSpacerItem *spItem1 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Expanding);
-    btnClear = new QPushButton("清除");
+    btnClear = new QPushButton("清除", this);
     QSpacerItem *spItem2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Expanding);
-    btnOk = new QPushButton("确定");
-    btnQuit = new QPushButton("退出");
+    btnOk = new QPushButton("确定", this);
+    btnQuit = new QPushButton("退出", this);
     hblayButton->addItem(spItem1);
     hblayButton->addWidget(btnClear);
     hblayButton->addItem(spItem2);

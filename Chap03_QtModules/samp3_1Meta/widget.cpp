@@ -64,8 +64,6 @@ void Widget::do_pbnClicked_pbnMetaInfo()
     }
 
     pteContent->insertPlainText(str);
-
-    qDebug() << "do_pbnClicked_pbnMetaInfo()";
 }
 
 void Widget::do_pbnClicked_pbnClear()
@@ -80,7 +78,6 @@ void Widget::do_ageChanged(int val)
     QString hisName = person->property("name").toString();
     QString hisGender = person->property("gender").toString();
     int hisAge = person->age();
-    qDebug() << hisName << hisGender << hisAge;
     QString str = QString("%1,%2,年龄=%3").arg(hisName).arg(hisGender).arg(hisAge);
     pteContent->appendPlainText(str); //与insertPlainText的区别，append是换行追加，insert是末尾追加
 }
@@ -102,24 +99,24 @@ void Widget::setupUI()
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     // 操作框 gbxOperate[vlayGBox[hlayBoy, hlayGirl]]
-    QGroupBox *gbxOperate = new QGroupBox();
+    QGroupBox *gbxOperate = new QGroupBox(this);
     QVBoxLayout *vlayGBox = new QVBoxLayout(gbxOperate);
     // 男生年龄水平布局 hlayBoy[lable1,sbxBoyAge,pbnBoyAge,pbnMetaInfo]
     QHBoxLayout *hlayBoy = new QHBoxLayout();
-    QLabel *lable1 = new QLabel("设置男生年龄");
-    sbxBoyAge = new QSpinBox();
-    pbnBoyAge = new QPushButton("boy长大一岁");
-    pbnMetaInfo = new QPushButton("元对象信息");
+    QLabel *lable1 = new QLabel("设置男生年龄", gbxOperate);
+    sbxBoyAge = new QSpinBox(gbxOperate);
+    pbnBoyAge = new QPushButton("boy长大一岁", gbxOperate);
+    pbnMetaInfo = new QPushButton("元对象信息", gbxOperate);
     hlayBoy->addWidget(lable1);
     hlayBoy->addWidget(sbxBoyAge);
     hlayBoy->addWidget(pbnBoyAge);
     hlayBoy->addWidget(pbnMetaInfo);
     // 女生年龄水平布局 hlayGirl[lable2,sbxGirlAge,pbnGirlAge,pbnClear]
     QHBoxLayout *hlayGirl = new QHBoxLayout();
-    QLabel *lable2 = new QLabel("设置女生年龄");
-    sbxGirlAge = new QSpinBox();
-    pbnGirlAge = new QPushButton("girl长大一岁");
-    pbnClear = new QPushButton("清空文本框");
+    QLabel *lable2 = new QLabel("设置女生年龄", gbxOperate);
+    sbxGirlAge = new QSpinBox(gbxOperate);
+    pbnGirlAge = new QPushButton("girl长大一岁", gbxOperate);
+    pbnClear = new QPushButton("清空文本框", gbxOperate);
     hlayGirl->addWidget(lable2);
     hlayGirl->addWidget(sbxGirlAge);
     hlayGirl->addWidget(pbnGirlAge);
@@ -128,7 +125,7 @@ void Widget::setupUI()
     vlayGBox->addLayout(hlayGirl);
 
     // 文本框
-    pteContent = new QPlainTextEdit();
+    pteContent = new QPlainTextEdit(this);
     mainLayout->addWidget(gbxOperate);
     mainLayout->addWidget(pteContent);
 
