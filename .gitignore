@@ -4,6 +4,9 @@
 # CMakeLists.txt.user
 *.user
 
+# gitignore
+*.gitignore
+
 # Prerequisites
 *.d
 
