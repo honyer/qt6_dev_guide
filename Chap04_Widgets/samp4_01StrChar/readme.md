@@ -6,4 +6,4 @@
 
 
 
-![运行示例](https://github.com/honyer/qt6_dev_guide/blob/main/Chap04_Widgets/samp4_01StrChar/samp4_01StrChar_preview.png)
+![运行示例](https://github.com/honyer/qt6_dev_guide/blob/main/Chap04_Widgets/samp4_01StrChar/samp4_04_preview.png)
