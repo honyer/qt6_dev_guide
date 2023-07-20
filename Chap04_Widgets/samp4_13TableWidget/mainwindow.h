@@ -35,10 +35,29 @@ private slots:
 
     void on_pbnLoadTableToText_clicked();
 
+    void on_tblContent_currentCellChanged(int currentRow,
+                                          int currentColumn,
+                                          int previousRow,
+                                          int previousColumn);
+
+    void on_pbnApendRow_clicked();
+
+    void on_cbxTableEditable_clicked(bool checked);
+
+    void on_cbxHeaderH_clicked(bool checked);
+
+    void on_cbxRowColor_clicked(bool checked);
+
+    void on_cbxHeaderV_clicked(bool checked);
+
+    void on_rbxSelectRow_clicked();
+
+    void on_rbnSelectColumn_clicked();
+
 private:
     Ui::MainWindow *ui;
-    enum CellType { ctName = 1000, ctSex, ctBirth, ctNation, ctPartyM, ctScore };
-    enum FieldColNum { colName = 0, colSex, colBirth, colNation, colPartyM, colScore };
+    enum CellType { ctName = 1000, ctSex, ctBirth, ctNation, ctScore, ctPartyM };
+    enum FieldColNum { colName = 0, colSex, colBirth, colNation, colScore, colPartyM };
 
     QLabel *lblCellIndex; // 状态栏显示单元格的行号和列号
     QLabel *lblCellType;  // 状态栏显示单元格的Type
